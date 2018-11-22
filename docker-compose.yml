@@ -1,0 +1,31 @@
+version: '3.4'
+services:
+  toro:
+    build: ./torodb
+    volumes:
+      - ./torodb/files/:/root/files
+      - ./torodb/scripts/:/root/scripts
+    command: tail -f /dev/null
+  psql:
+    build: ./psql
+    environment:
+      POSTGRES_PASSWORD: chachichachi
+      POSTGRES_USER: toro
+      POSTGRES_DB: torodb
+    ports:
+      - "5432:5432"
+  mongodb:
+    build: ./mongodb
+    command: mongod --replSet rs0 --bind_ip 0.0.0.0
+  pgadmin:
+    image: dpage/pgadmin4
+    ports: 
+      - "8080:80"
+    environment: 
+      - "PGADMIN_DEFAULT_EMAIL=user@domain.com"
+      - "PGADMIN_DEFAULT_PASSWORD=SuperSecret"
+  mongoclient:
+    image: mongoclient/mongoclient:2.2.0
+    ports:
+      - "8081:3000"
+  

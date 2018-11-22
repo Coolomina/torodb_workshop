@@ -1,0 +1,29 @@
+---
+logging: {}
+metricsEnabled: false
+offHeapBuffer:
+  enabled: false
+  path: "/tmp/"
+  rollCycle: "DAILY"
+  maxFiles: 5
+replication:
+  replSetName: "rs0"
+  syncSource: "mongodb:27017"
+  ssl:
+    enabled: false
+    allowInvalidHostnames: false
+    fipsMode: false
+  auth:
+    mode: "disabled"
+backend:
+  pool:
+    connectionPoolTimeout: 10000
+    connectionPoolSize: 30
+  postgres:
+    host: "psql"
+    port: 5432
+    database: "torodb"
+    user: "toro"
+    toropassFile: "/root/files/.toropass"
+    applicationName: "toro"
+    ssl: false
